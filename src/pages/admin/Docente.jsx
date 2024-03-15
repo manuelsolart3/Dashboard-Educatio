@@ -1,6 +1,5 @@
 import React from "react";
-import { CgProfile } from "react-icons/cg";
-
+import { PiChalkboardTeacherDuotone } from "react-icons/pi";
 
 const Docente = () => {
   return (
@@ -19,7 +18,7 @@ const Docente = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">
           {/* Icono de perfil y texto */}
           <div className="flex items-center">
-          <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
+          <PiChalkboardTeacherDuotone className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
             <span className="text-xs text-white ml-1">
               
               <p>Nombre del Usuario</p>
@@ -38,7 +37,7 @@ const Docente = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">
           {/* Icono de perfil y texto */}
           <div className="flex items-center">
-          <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
+          <PiChalkboardTeacherDuotone className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
             <span className="text-xs text-white ml-1">
               
               <p>Nombre del Usuario</p>
@@ -57,7 +56,7 @@ const Docente = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">
           {/* Imagen de perfil y texto */}
           <div className="flex items-center">
-          <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
+          <PiChalkboardTeacherDuotone className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
             <span className="text-xs text-white ml-1">
               
               <p>Nombre del Usuario</p>
@@ -76,7 +75,7 @@ const Docente = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">
           {/* Icono de perfil y texto */}
           <div className="flex items-center">
-          <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
+          <PiChalkboardTeacherDuotone className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
             <span className="text-xs text-white ml-1">
               
               <p>Nombre del Usuario</p>
@@ -95,7 +94,7 @@ const Docente = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">
           {/* Icono de perfil y texto */}
           <div className="flex items-center">
-          <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
+          <PiChalkboardTeacherDuotone className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
             <span className="text-xs text-white ml-1">
               
               <p>Nombre del Usuario</p>
@@ -113,7 +112,7 @@ const Docente = () => {
         </div> <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl">
           {/* Icono de perfil y texto */}
           <div className="flex items-center">
-          <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
+          <PiChalkboardTeacherDuotone className="w-10 h-10 rounded-full object-cover mr-2 text-primary"  />
             <span className="text-xs text-white ml-1">
               
               <p>Nombre del Usuario</p>
@@ -124,7 +123,7 @@ const Docente = () => {
             <p className="text-xs text-white ml-14">25/02/2024</p>
           </div>
           <div>
-            <span className="py-1 px-2 bg-red-500/10 text-red-500 rounded-lg ml-16">
+            <span className="py-1 px-2 bg-green-500/10 text-green-500 rounded-lg ml-16">
               Activo
             </span>
           </div>
