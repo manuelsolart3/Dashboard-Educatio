@@ -31,7 +31,7 @@ const Sidebar = () => {
                 onClick={() => setShowSubmenu(!showSubmenu)}
                 className="w-full flex items-center justify-between py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
               >
-                <span className="flex items-center gap-4">
+                <span className="flex items-center gap-4 text-white">
                   <RiEarthLine className="text-primary" /> Gestión de usuarios
                 </span>
                 <RiArrowRightSLine
@@ -48,7 +48,7 @@ const Sidebar = () => {
                 <li>
                   <Link
                     to="/home"
-                    className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-primary before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                    className="text-white flex items-center gap-5 py-2 px-2 rounded-lg hover:bg-secondary-900 transition-colors border-gray-500 ml-6 block relative "
                   >
                    Usuario
                   </Link>
@@ -56,7 +56,7 @@ const Sidebar = () => {
                 <li>
                   <Link
                     to="/home/docente"
-                    className="py-2 px-4 border-l border-gray-500 ml-6 block relative before:w-3 before:h-3 before:absolute before:bg-gray-500 before:rounded-full before:-left-[6.5px] before:top-1/2 before:-translate-y-1/2 before:border-4 before:border-secondary-100 hover:text-white transition-colors"
+                    className="text-white flex items-center gap-5 py-2 px-2 rounded-lg hover:bg-secondary-900 transition-colors border-gray-500 ml-6 block relative "
                   >
                     Docente
                   </Link>
@@ -66,7 +66,7 @@ const Sidebar = () => {
             <li>
               <Link
                 to="/home/verificacion"
-                className="flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
+                className="text-white flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
               >
                 <RiBarChart2Line className="text-primary" /> Verificaciones
               </Link>
@@ -74,8 +74,8 @@ const Sidebar = () => {
             
             <li>
               <Link
-                to="/home/soporte"
-                className="flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
+                to="/home/soporte "
+                className="text-white flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
               >
                 <RiCustomerService2Line className="text-primary" /> Soporte
                 técnico
@@ -86,7 +86,7 @@ const Sidebar = () => {
         <nav>
           <Link
             to="/"
-            className="flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
+            className="text-white flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
           >
             <RiLogoutCircleRLine className="text-primary" /> Cerrar sesión
           </Link>

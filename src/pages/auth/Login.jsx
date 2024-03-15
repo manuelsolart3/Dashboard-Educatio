@@ -14,6 +14,9 @@ const Login = () => {
     const email = e.target[0].value; //valor del email
     const password = e.target[1].value; //valor de la pass
 
+    //almacenamos el email en el almacenamiento local 
+    localStorage.setItem('userEmail', email);
+
     try {//realizamos solicitud POST al endpoint de login
       const response = await fetch("https://bdeducatio.vercel.app/api/admin/login", {
         method: "POST", 
