@@ -13,6 +13,13 @@ import {
 const Sidebar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSubmenu, setShowSubmenu] = useState(false);
+
+  const handleLogout = () => {
+    // Limpiar los datos de sesión
+    localStorage.removeItem("accessToken");
+    // Redirigir a la página de inicio de sesión
+    window.location.href = "/";
+  };
   
   return (
     <>
@@ -84,13 +91,14 @@ const Sidebar = () => {
           </ul>
         </div>
         <nav>
-          <Link
-            to="/"
-            className="text-white flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
-          >
-            <RiLogoutCircleRLine className="text-primary" /> Cerrar sesión
-          </Link>
-        </nav>
+      <Link
+       
+        onClick={handleLogout}
+        className="text-white flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-secondary-900 transition-colors"
+      >
+        <RiLogoutCircleRLine className="text-primary" /> Cerrar sesión
+      </Link>
+    </nav>
       </div>
       <button
         onClick={() => setShowMenu(!showMenu)}

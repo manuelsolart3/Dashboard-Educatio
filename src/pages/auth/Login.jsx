@@ -33,6 +33,14 @@ const Login = () => {
         throw new Error("Usuario o contraseña incorrectos");
       }
 
+       // Si la autenticación es exitosa, obtenemos el token de acceso del cuerpo de la respuesta
+      const data = await response.json();
+      const accessToken = data.accessToken;
+
+      // Almacenamos el token de acceso en el almacenamiento local
+      localStorage.setItem("accessToken", accessToken);
+
+      
       // Si la respuesta es exitosa, redireccionamos a la página de inicio
       window.location.href = "/home";
     } catch (error) {
