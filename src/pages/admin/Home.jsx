@@ -5,7 +5,6 @@ import { FaSearch } from "react-icons/fa";
 const Home = () => {
   // Estado para almacenar la lista de usuarios
   const [usuarios, setUsuarios] = useState([]);
-
   //Estado para almacenar termino de la busqueda
   const [buscarTermino, setBuscarTermino] = useState("");
 
@@ -22,7 +21,7 @@ const Home = () => {
     );
   };
 
-  // Efecto para realizar la solicitud a la API cuando el componente se monta
+  // Efecto para cargar los usuarios al montar el componente
   useEffect(() => {
     // Función para obtener los datos de la API
     const fetchData = async () => {
@@ -48,56 +47,66 @@ const Home = () => {
     fetchData();
   }, []); // Se ejecuta solo una vez al montar el componente
 
-  const actualizarEstado = async (userId, nuevoRol) => {
+  // Función para actualizar el estado del usuario
+  const actualizarEstado = async (userId) => {
     try {
-      // Realiza una solicitud PATCH al endpoint para actualizar el usuario con el ID especificado
-      const response = await fetch(`https://bdeducatio.vercel.app/api/usuarios/:id${userId}`, {
-        method: 'PUT', // Utiliza el método PATCH para actualizar la información del usuario
-        headers: {
-          'Content-Type': 'application/json' // Establece el tipo de contenido del cuerpo de la solicitud como JSON
-        },
-        body: JSON.stringify({
-          rol: nuevoRol // Envia el nuevo rol del usuario en el cuerpo de la solicitud en formato JSON
-        })
-      });
-      
-      // Verifica si la solicitud fue exitosa
-      if (!response.ok) {
-        throw new Error('Error al actualizar el estado del usuario'); // Lanza un error si la respuesta no es exitosa
-      }
-  
-      // Actualiza el estado local de los usuarios después de la actualización
-      const updatedUsers = usuarios.map(user => {
-        if (user._id === userId) { // Busca el usuario correspondiente al ID y actualiza su rol
-          return { ...user, rol: nuevoRol }; // Retorna una nueva copia del usuario con el rol actualizado
+    
+
+      // Realiza una solicitud PUT al endpoint para actualizar el usuario con el ID especificado
+      const response = await fetch(
+        `https://bdeducatio.vercel.app/api/usuarios/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // Cambia el rol de usuario a docente y viceversa
+            rol:
+              usuarios.find((user) => user._id === userId).rol === "usuario"
+                ? "docente"
+                : "usuario",
+          }),
         }
-        return user; // Retorna el usuario sin cambios si no corresponde al ID especificado
-      });
-      setUsuarios(updatedUsers); // Actualiza el estado local de los usuarios con los cambios
-  
-      console.log('Estado del usuario actualizado correctamente'); // Imprime un mensaje de éxito en la consola
+      );
+      // Verificar si la solicitud fue exitosa
+      if (!response.ok) {
+        throw new Error("Error al actualizar el estado del usuario");
+      }
+
+      // Actualiza el estado local después de la actualización
+      const updatedUsers = usuarios.map((user) =>
+        user._id === userId
+          ? { ...user, rol: user.rol === "usuario" ? "docente" : "usuario" }
+          : user
+      );
+      //si la solicitud fue exitosa
+      setUsuarios(updatedUsers);
+      console.log("El rol del usuario se actualizó correctamente");
     } catch (error) {
-      console.error('Error al actualizar el estado del usuario:', error); // Captura cualquier error y lo imprime en la consola
+      console.error("Error al actualizar el estado del usuario:", error);
     }
   };
-  
   const eliminarUsuario = async (userId) => {
     try {
-      const response = await fetch(`https://bdeducatio.vercel.app/api/usuarios/${userId}`, {
-        method: 'DELETE',
-      });
-  
+      const response = await fetch(
+        `https://bdeducatio.vercel.app/api/usuarios/${userId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
       if (!response.ok) {
-        throw new Error('Error al eliminar el usuario');
+        throw new Error("Error al eliminar el usuario");
       }
-  
+
       // Filtra los usuarios para mantener solo aquellos cuyo ID no coincida con el ID del usuario eliminado
-      const updatedUsers = usuarios.filter(user => user._id !== userId);
+      const updatedUsers = usuarios.filter((user) => user._id !== userId);
       setUsuarios(updatedUsers);
-  
-      console.log('Usuario eliminado correctamente');
+
+      console.log("Usuario eliminado correctamente");
     } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
+      console.error("Error al eliminar el usuario:", error);
     }
   };
 
@@ -143,6 +152,7 @@ const Home = () => {
                 <p>{usuario.NomCompleto}</p>
                 <p>{usuario.email}</p>
                 <p>{usuario._id}</p>
+                <p>{usuario.rol}</p>
               </span>
             </div>
             {/* Muestra la fecha de creación del usuario */}
@@ -163,13 +173,19 @@ const Home = () => {
                 {usuario.rol === "usuario" ? "Usuario" : "Docente"}
               </span>
             </div>
-            {/* Botones de aceptar y rechazar */}
+            {/* Botones de actualizar y elimninar */}
             <div className="flex justify-end space-x-4 md:space-x-3">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => actualizarEstado(usuario._id)}>
-                Aceptar
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                onClick={() => actualizarEstado(usuario._id)}
+              >
+                actualizar
               </button>
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" onClick={() => eliminarUsuario(usuario._id)}> 
-                Rechazar
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                onClick={() => eliminarUsuario(usuario._id)}
+              >
+                eliminar
               </button>
             </div>
           </div>
