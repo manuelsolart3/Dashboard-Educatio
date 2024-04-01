@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   RiBarChart2Line,
   RiEarthLine,
-  RiCustomerService2Line,
+
   RiLogoutCircleRLine,
   RiArrowRightSLine,
   RiMenu3Line,

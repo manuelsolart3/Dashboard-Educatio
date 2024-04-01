@@ -161,14 +161,14 @@ const Home = () => {
                 {new Date(usuario.createdAt).toLocaleDateString()}
               </p>
             </div>
-            {/* Muestra el estatus del usuario (activo o inactivo) */}
+            {/* Muestra el estatus del usuario (usuario o docente) */}
             <div>
               <span
-                className={`py-1 px-2 ${
-                  usuario.rol === "usuario" ? "bg-green-500" : "bg-red-500"
+                className={`py-1 px-2 shadow-md ${
+                  usuario.rol === "usuario" ? "bg-green-500 text-green-500" : "bg-red-500 text-red-500"
                 }/10 text-${
                   usuario.rol === "usuario" ? "green" : "red"
-                }-500 rounded-lg ml-16`}
+                } rounded-lg ml-16`}
               >
                 {usuario.rol === "usuario" ? "Usuario" : "Docente"}
               </span>

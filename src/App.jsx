@@ -10,9 +10,9 @@ import Login from "./pages/auth/Login";
 //Pages Admin
 import Home from "./pages/admin/Home";
 import Error404 from "./pages/Error404";
-import Docente from "./pages/admin/Docente";
+
 import Verificacion from "./pages/admin/Verificacion";
-import Soporte from "./pages/admin/Soporte";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,9 +48,8 @@ function App() {
           }
         >
           <Route index element={<Home />} />
-          <Route path="docente" element={<Docente />} />
           <Route path="verificacion" element={<Verificacion />} />
-          <Route path="soporte" element={<Soporte />} />
+        
         </Route>
 
         <Route path="*" element={<Error404 />} />
