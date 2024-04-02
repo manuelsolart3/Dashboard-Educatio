@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Layout
 import LayoutAdmin from "./layout/LayoutAdmin";
@@ -13,45 +13,25 @@ import Error404 from "./pages/Error404";
 
 import Verificacion from "./pages/admin/Verificacion";
 
-
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Lógica para verificar si el usuario está autenticado
-  const checkAuthentication = () => {
-    const token = localStorage.getItem("accessToken");
-    setIsAuthenticated(!!token); // Establece isAuthenticated en verdadero si hay un token
-  };
-
-  // Llama a checkAuthentication cuando se monta la aplicación para verificar la autenticación
-  useState(() => {
-    checkAuthentication();
+  useEffect(() => {
+    // Lógica para verificar la autenticación
+    const token = localStorage.getItem('accessToken');
+    setIsAuthenticated(!!token);
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={<Login checkAuthentication={checkAuthentication} />}
-        />
-
-        {/* Protege todas las rutas dentro de "/home" */}
-        <Route
-          path="/home"
-          element={
-            isAuthenticated ? (
-              <LayoutAdmin />
-            ) : (
-              <Navigate to="/" replace={true} /> // Redirige al inicio de sesión si no está autenticado
-            )
-          }
-        >
-          <Route index element={<Home />} />
-          <Route path="verificacion" element={<Verificacion />} />
-        
-        </Route>
-
+        {/* Ruta para el inicio de sesión */}
+        <Route path="/" element={<Login />} />
+        {/* Rutas protegidas */}
+        <Route path="/home" element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" replace />} />
+        <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" replace />} />
+        <Route path="/verificacion" element={isAuthenticated ? <Verificacion /> : <Navigate to="/" replace />} />
+        {/* Ruta para el error 404 */}
         <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>

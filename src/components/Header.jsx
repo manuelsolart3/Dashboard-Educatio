@@ -12,7 +12,7 @@ const userEmail = localStorage.getItem('userEmail');
         <nav className="flex items-center gap-2">
           <div className="flex items-center gap-4">
          < BsPersonFillCheck  className="text-primary"  />
-            <span className="text-white">{userEmail}</span>
+            <span className="text-primary">{userEmail}</span>
           </div>
         </nav>
       </header>
