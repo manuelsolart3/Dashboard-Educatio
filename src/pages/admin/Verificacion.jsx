@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { IoShieldCheckmark } from "react-icons/io5";
 
 const Verificacion = () => {
+  // Estado para almacenar la lista de usuarios
   const [usuarios, setUsuarios] = useState([]);
 
+  // cargar los usuarios al montar el componente
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,6 +19,7 @@ const Verificacion = () => {
         const usuariosConArchivoUrl = data.usuarios.filter(
           (user) => user.archivoUrl
         );
+        // Actualiza el estado con la lista de usuarios filtrada
         setUsuarios(usuariosConArchivoUrl);
       } catch (error) {
         console.error("Error:", error);
@@ -26,6 +29,7 @@ const Verificacion = () => {
     fetchData();
   }, []);
 
+  // Función para actualizar el estado del usuario
   const actualizarEstado = async (userId) => {
     try {
       const response = await fetch(
@@ -47,6 +51,7 @@ const Verificacion = () => {
         throw new Error("Error al actualizar el estado del usuario");
       }
 
+      // Actualiza el estado local después de la actualización
       const updatedUsers = usuarios.map((user) =>
         user._id === userId
           ? { ...user, rol: user.rol === "usuario" ? "docente" : "usuario" }
@@ -87,12 +92,16 @@ const Verificacion = () => {
                 </div>
               </div>
             </div>
+            {/* Campo para mostrar el URL */}
             <div className="text-xs text-white col-span-1">
               <p>
-                URL:{" "}
-                <a href="#" className="text-blue-500">
-                  {user.archivoUrl}
-                </a>
+                {/* Botón "Hoja de vida" */}
+                <button
+                  className="px-7 py-4 bg-blue-500 text-white rounded-lg border border-primary hover:bg-primary"
+                  onClick={() => window.open(user.archivoUrl, "_blank")}
+                >
+                  Hoja de vida
+                </button>
               </p>
             </div>
             <div className="col-span-1">
