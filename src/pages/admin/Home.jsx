@@ -129,25 +129,25 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="bg-secondary-100 p-8 rounded-xl">
+      <div className="bg-white p-8 rounded-xl">
         {/* Títulos */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-8 bg-secondary-900 p-4 rounded-xl">
-          <h5 className="text-white font-bold mb-2 md:text-lg ml-5">Usuario</h5>
-          <h5 className="text-white font-bold mb-2 md:text-lg ml-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-8 bg-white p-4 rounded-xl">
+          <h5 className="text-secondary-900 font-bold mb-2 md:text-lg ml-5">Usuario</h5>
+          <h5 className="text-secondary-900 font-bold mb-2 md:text-lg ml-10">
             Created at
           </h5>
-          <h5 className="text-white font-bold mb-2 md:text-lg ml-16">Rol</h5>
+          <h5 className="text-secondary-900  font-bold mb-2 md:text-lg ml-16">Rol</h5>
         </div>
         {/* Contenido de usuarios */}
         {usuarios.filter(usuariosFiltrados).map((usuario) => (
           <div
             key={usuario._id}
-            className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-secondary-900 p-4 rounded-xl"
+            className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 bg-white p-4 rounded-xl shadow-md border border-gray-200"
           >
             {/* Icono de perfil y texto */}
             <div className="flex items-center">
               <CgProfile className="w-10 h-10 rounded-full object-cover mr-2 text-primary" />
-              <span className="text-xs text-white ml-1">
+              <span className="text-xs text-secondary-900 ml-1">
                 {/* Muestra el nombre del usuario y su correo */}
                 <p>{usuario.NomCompleto}</p>
                 <p>{usuario.email}</p>
@@ -157,18 +157,18 @@ const Home = () => {
             </div>
             {/* Muestra la fecha de creación del usuario */}
             <div>
-              <p className="text-xs text-white ml-14">
+              <p className="text-xs text-secondary-900 ml-14">
                 {new Date(usuario.createdAt).toLocaleDateString()}
               </p>
             </div>
             {/* Muestra el estatus del usuario (usuario o docente) */}
             <div>
               <span
-                className={`py-1 px-2 shadow-md ${
-                  usuario.rol === "usuario" ? "bg-green-500 text-green-500" : "bg-red-500 text-red-500"
-                }/10 text-${
+                className={`py-1 px-2 shadow-md font-bold ${
+                  usuario.rol === "usuario" ? "bg-green-200 text-green-400 text-bold" : "bg-red-200 text-red-500 "
+                } rounded-lg ml-16-${
                   usuario.rol === "usuario" ? "green" : "red"
-                } rounded-lg ml-16`}
+                } -900 text-opacity-75 rounded-lg ml-16`}
               >
                 {usuario.rol === "usuario" ? "Usuario" : "Docente"}
               </span>

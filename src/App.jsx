@@ -30,11 +30,16 @@ function App() {
 
   return (
     <BrowserRouter>
+    <div className="bg-white"> {/* Fondo blanco para toda la aplicación */}
       <Routes>
         <Route
           path="/"
-          element={<Login checkAuthentication={checkAuthentication} />}
-        />
+          element={
+            <div className="bg-cover bg-center bg-no-repeat backgroundImage-back1">
+              <Login checkAuthentication={checkAuthentication} />
+            </div>
+          }
+        />-
 
         {/* Protege todas las rutas dentro de "/home" */}
         <Route
@@ -54,6 +59,7 @@ function App() {
 
         <Route path="*" element={<Error404 />} />
       </Routes>
+      </div>
     </BrowserRouter>
   );
 }
