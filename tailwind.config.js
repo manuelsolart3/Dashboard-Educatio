@@ -10,10 +10,13 @@ export default {
           900: "#131618",
           fondo: "#0b0b0c",
           oscuro: "#5444c2",
+
+          morado: "#5A40FA",
         },
-        backgroundImage: {
-          back1: "url('/src/img/back1.jpg')",
-        },
+        tercero: { limad: "#1ccc84sd", lima: "#1ccc84 " },
+      },
+      backgroundImage: {
+        back1: "url('/src/img/back1.jpg')",
       },
     },
   },
