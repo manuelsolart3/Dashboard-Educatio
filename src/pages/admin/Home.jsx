@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { CgProfile } from "react-icons/cg";
+//import { CgProfile } from "react-icons/cg";
 import { FaSearch } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { GrUpdate } from "react-icons/gr";
-import { FaMasksTheater, FaCalendarDays } from "react-icons/fa6";
+//import { GrUpdate } from "react-icons/gr";
+//import { FaMasksTheater, FaCalendarDays } from "react-icons/fa6";
 import {
-  FcInspection,
-  FcBusinessman,
-  FcDoughnutChart,
+  
   FcManager,
   FcCalendar,
-  FcNeutralDecision,
+  //FcNeutralDecision,
   FcRedo,
 } from "react-icons/fc";
 const Home = () => {
@@ -29,6 +27,8 @@ const Home = () => {
         .toLocaleDateString()
         .includes(buscarTermino) ||
       usuario.rol.toLowerCase().includes(buscarTermino.toLowerCase())
+      ||
+      usuario.email.toLowerCase().includes(buscarTermino.toLowerCase())
     );
   };
 
