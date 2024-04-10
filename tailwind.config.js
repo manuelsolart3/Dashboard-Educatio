@@ -16,7 +16,7 @@ export default {
         tercero: { limad: "#1ccc84sd", lima: "#1ccc84 " },
       },
       backgroundImage: {
-        back1: "url('/src/img/back1.jpg')",
+        back1: "url('/img/back1.jpg')",
       },
     },
   },
