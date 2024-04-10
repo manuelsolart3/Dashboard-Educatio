@@ -171,7 +171,7 @@ const Home = () => {
             <div className="bg-tercero-lima text-white rounded-lg flex items-center p-3">
              
                 <img
-                  src="/src/img/teatro.png"
+                  src="/img/teatro.png"
                   alt="Logo"
                   className="w-12 h-10 mr-2"
                 />

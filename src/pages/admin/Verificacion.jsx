@@ -106,7 +106,7 @@ const Verificacion = () => {
           <div className="bg-white p-4 rounded-xl">
             <div className="bg-tercero-lima text-white rounded-lg flex items-center p-3">
               <img
-                src="/src/img/teatro.png"
+                src="/img/teatro.png"
                 alt="Logo"
                 className="w-8 h-8 mr-2"
               />
