@@ -3,10 +3,9 @@ import React from 'react';
 const MessageCard = ({ message }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-purple-500 rounded-lg shadow-2xl p-6">
         <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-          <h2 className="text-xl font-semibold text-gray-800"></h2>
-          <button className="text-gray-600 hover:text-gray-800 focus:outline-none">
+          <button className="text-gray-100 hover:text-gray-200 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -23,7 +22,7 @@ const MessageCard = ({ message }) => {
             </svg>
           </button>
         </div>
-        <p className="text-lg text-gray-700 mt-4">{message}</p>
+        <p className="text-xl text-white mt-4">{message}</p>
       </div>
     </div>
   );

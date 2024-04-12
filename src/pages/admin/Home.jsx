@@ -5,35 +5,20 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 //import { GrUpdate } from "react-icons/gr";
 //import { FaMasksTheater, FaCalendarDays } from "react-icons/fa6";
 import {
-  
   FcManager,
   FcCalendar,
   //FcNeutralDecision,
   FcRedo,
 } from "react-icons/fc";
+
 const Home = () => {
   // Estado para almacenar la lista de usuarios
   const [usuarios, setUsuarios] = useState([]);
   //Estado para almacenar termino de la busqueda
   const [buscarTermino, setBuscarTermino] = useState("");
 
-  //funcion funcion de filtro
-  const usuariosFiltrados = (usuario) => {
-    return (
-      usuario.NomCompleto.toLowerCase().includes(
-        buscarTermino.toLocaleLowerCase()
-      ) ||
-      new Date(usuario.createdAt)
-        .toLocaleDateString()
-        .includes(buscarTermino) ||
-      usuario.rol.toLowerCase().includes(buscarTermino.toLowerCase())
-      ||
-      usuario.email.toLowerCase().includes(buscarTermino.toLowerCase())
-    );
-  };
-
   // Efecto para cargar los usuarios al montar el componente
-  useEffect(() => {
+
     // Función para obtener los datos de la API
     const fetchData = async () => {
       try {
@@ -47,6 +32,7 @@ const Home = () => {
         }
         // Convierte la respuesta a formato JSON
         const data = await response.json();
+       
         // Actualiza el estado con la lista de usuarios obtenida
         setUsuarios(data.usuarios);
       } catch (error) {
@@ -54,9 +40,24 @@ const Home = () => {
       }
     };
 
-    // Llama a la función fetchData
+  // Efecto para cargar los usuarios al montar el componente y consultar periódicamente nuevos usuarios
+  useEffect(() => {
+    // Llama a la función fetchData para cargar los usuarios al montar el componente
     fetchData();
+
+    // Función para realizar una consulta periódica al servidor para obtener nuevos usuarios
+    const interval = setInterval(async () => {
+      try {
+        await fetchData(); // Realiza la consulta al servidor
+      } catch (error) {
+        console.error("Error al obtener nuevos usuarios:", error);
+      }
+    }, 5000); // Consulta cada 5 segundos
+
+    // Limpia el intervalo cuando el componente se desmonta para evitar fugas de memoria
+    return () => clearInterval(interval);
   }, []); // Se ejecuta solo una vez al montar el componente
+ 
 
   // Función para actualizar el estado del usuario
   const actualizarEstado = async (userId) => {
@@ -118,6 +119,19 @@ const Home = () => {
       console.error("Error al eliminar el usuario:", error);
     }
   };
+  //funcion funcion de filtro
+  const usuariosFiltrados = (usuario) => {
+    return (
+      usuario.NomCompleto.toLowerCase().includes(
+        buscarTermino.toLocaleLowerCase()
+      ) ||
+      new Date(usuario.createdAt)
+        .toLocaleDateString()
+        .includes(buscarTermino) ||
+      usuario.rol.toLowerCase().includes(buscarTermino.toLowerCase()) ||
+      usuario.email.toLowerCase().includes(buscarTermino.toLowerCase())
+    );
+  };
 
   return (
     <div>
@@ -128,7 +142,7 @@ const Home = () => {
       <div className="relative mb-4">
         <input
           type="text"
-          placeholder="Buscar por nombre, fecha o rol..."
+          placeholder="Buscar por nombre-email fecha o rol..."
           value={buscarTermino}
           onChange={(e) => setBuscarTermino(e.target.value)}
           className="text-sm text-gray-600 placeholder-gray-400 py-3 px-4 bg-white w-full outline-none rounded-lg focus:ring-2 focus:ring-primary border border-blue-500"
@@ -169,13 +183,12 @@ const Home = () => {
           <div className="bg-white p-4 rounded-xl">
             {/* Contenido de la tarjeta */}
             <div className="bg-tercero-lima text-white rounded-lg flex items-center p-3">
-             
-                <img
-                  src="/img/teatro.png"
-                  alt="Logo"
-                  className="w-12 h-10 mr-2"
-                />
-             
+              <img
+                src="/img/teatro.png"
+                alt="Logo"
+                className="w-12 h-10 mr-2"
+              />
+
               <div>
                 <h3 className="text-lg font-semibold text-center">Rol</h3>
                 <p className="text-2xl font-bold"></p>
@@ -201,14 +214,15 @@ const Home = () => {
             </div>
             {/* Muestra la fecha de creación del usuario */}
             <div>
-              <p className="text-xs text-secondary-900 ml-14 font-bold">
+              <p className="text-xs text-secondary-900 ml-14 font-bold col-span-1 flex justify-end md:justify-end ">
                 {new Date(usuario.createdAt).toLocaleDateString()}
               </p>
             </div>
             {/* Muestra el estatus del usuario (usuario o docente) */}
             <div>
               <span
-                className={`py-1 px-2 shadow-md font-bold ${
+                className={`py-3 px-0   font-bold col-span-1 flex justify-end md:justify-end
+                ${
                   usuario.rol === "usuario"
                     ? "bg-tercero-limad text-tercero-lima text-bold"
                     : "bg-white text-red-500 "

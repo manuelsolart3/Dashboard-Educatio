@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { IoShieldCheckmark } from "react-icons/io5";
 import { FaExchangeAlt } from "react-icons/fa";
-import MessageCard from './MessageCard';
+import MessageCard from "./MessageCard";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 import {
   FcManager,
@@ -9,31 +10,53 @@ import {
   FcFinePrint,
 } from "react-icons/fc";
 
+// Define el componente Verificacion
 const Verificacion = () => {
+  // Define estados para usuarios, mostrarMensaje y mensaje
   const [usuarios, setUsuarios] = useState([]);
   const [mostrarMensaje, setMostrarMensaje] = useState(false);
-  const [mensaje, setMensaje] = useState('');
+  const [mensaje, setMensaje] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://bdeducatio.vercel.app/api/usuarios"
-        );
-        if (!response.ok) {
-          throw new Error("Error al obtener los usuarios");
-        }
-        const data = await response.json();
-        const usuariosConArchivoUrl = data.usuarios.filter(
-          (user) => user.archivoUrl
-        );
-        setUsuarios(usuariosConArchivoUrl);
-      } catch (error) {
-        console.error("Error:", error);
+  // Define la función fetchData para obtener usuarios de la API
+  const fetchData = async () => {
+    try {
+      // Realiza una solicitud a la API para obtener usuarios
+      const response = await fetch(
+        "https://bdeducatio.vercel.app/api/usuarios"
+      );
+      // Verifica si la solicitud fue exitosa
+      if (!response.ok) {
+        throw new Error("Error al obtener los usuarios");
       }
-    };
-
+      // Convierte la respuesta a formato JSON
+      const data = await response.json();
+      // Filtra los usuarios para obtener solo aquellos con archivoUrl
+      const usuariosConArchivoUrl = data.usuarios.filter(
+        (user) => user.archivoUrl
+      );
+      // Actualiza el estado de usuarios con la lista filtrada
+      setUsuarios(usuariosConArchivoUrl);
+    } catch (error) {
+      // Maneja cualquier error ocurrido durante la solicitud
+      console.error("Error:", error);
+    }
+  };
+  // Efecto para cargar usuarios al montar el componente y consultar periódicamente nuevos usuarios
+  useEffect(() => {
+    // Llama a la función fetchData para cargar usuarios al montar el componente
     fetchData();
+
+    // Función para realizar una consulta periódica al servidor para obtener nuevos usuarios
+    const interval = setInterval(async () => {
+      try {
+        await fetchData(); // Realiza la consulta al servidor
+      } catch (error) {
+        console.error("Error al obtener nuevos usuarios:", error);
+      }
+    }, 5000); // Consulta cada 5 segundos
+
+    // Limpia el intervalo cuando el componente se desmonta para evitar fugas de memoria
+    return () => clearInterval(interval);
   }, []);
 
   const actualizarEstado = async (userId) => {
@@ -64,7 +87,7 @@ const Verificacion = () => {
       );
       setUsuarios(updatedUsers);
       setMostrarMensaje(true);
-      setMensaje('El usuario ha sido aceptado como docente.');
+      setMensaje("El usuario ha sido aceptado como docente.");
       setTimeout(() => {
         setMostrarMensaje(false);
       }, 3000);
@@ -73,10 +96,51 @@ const Verificacion = () => {
     }
   };
 
+  const descartarVerificacion = async (userId) => {
+    try {
+      const response = await fetch(
+        `https://bdeducatio.vercel.app/api/usuarios/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            archivoUrl: null,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al descartar la verificación del usuario");
+      }
+
+      // Actualizar la lista de usuarios eliminando el archivoUrl del usuario específico
+      const updatedUsers = usuarios.map((user) =>
+        user._id === userId ? { ...user, archivoUrl: null } : user
+      );
+      setUsuarios(updatedUsers);
+
+      console.log(
+        "La verificación del usuario ha sido descartada correctamente"
+      );
+
+      // Mostrar el mensaje de éxito
+      setMostrarMensaje(true);
+      setMensaje("La Solicitud del usuario ha sido rechazada ");
+
+      // No recargar la página después de mostrar el mensaje
+      setTimeout(() => {
+        setMostrarMensaje(false);
+      }, 3000); // Duración del mensaje: 3 segundos
+    } catch (error) {
+      console.error("Error al descartar la verificación del usuario:", error);
+    }
+  };
+
   const filtrarUsuarios = (usuario) => {
     return usuario.rol !== "docente";
   };
-
   return (
     <div className="p-4 md:p-8">
       <h1 className="text-2xl md:text-3xl text-white my-4 md:my-10">
@@ -105,11 +169,7 @@ const Verificacion = () => {
           </div>
           <div className="bg-white p-4 rounded-xl">
             <div className="bg-tercero-lima text-white rounded-lg flex items-center p-3">
-              <img
-                src="/img/teatro.png"
-                alt="Logo"
-                className="w-8 h-8 mr-2"
-              />
+              <img src="/img/teatro.png" alt="Logo" className="w-8 h-8 mr-2" />
               <div>
                 <h3 className="text-base font-semibold text-center">Rol</h3>
                 <p className="text-lg font-bold"></p>
@@ -159,18 +219,29 @@ const Verificacion = () => {
             <div className="col-span-1 flex justify-center md:justify-end">
               <div className="relative">
                 <div
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded cursor-pointer"
                   onClick={() => actualizarEstado(user._id)}
                 >
                   <FaExchangeAlt className="w-6 h-6 text-white" />
                 </div>
               </div>
             </div>
+            <div className="col-span-1 flex justify-center md:justify-end relative">
+              <div
+                className="absolute top-0 left-0 flex items-center justify-center w-10 h-10 rounded-full bg-red-500 hover:bg-red-600 cursor-pointer"
+                onClick={() => descartarVerificacion(user._id)}
+              >
+                <RiDeleteBin5Fill className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-red-500 ml-2">adas</span>
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
+  
+  
 };
 
 export default Verificacion;
