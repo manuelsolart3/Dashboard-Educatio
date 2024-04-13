@@ -18,58 +18,42 @@ import Verificacion from "./pages/admin/Verificacion";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    checkAuthentication();
-  }, []);
-
+  // Lógica para verificar si el usuario está autenticado
   const checkAuthentication = () => {
     const token = localStorage.getItem("accessToken");
-    setIsAuthenticated(!!token);
+    setIsAuthenticated(!!token); // Establece isAuthenticated en verdadero si hay un token
   };
 
-  const handleLogin = async (email, password) => {
-    try {
-      const response = await fetch("https://bdeducatio.vercel.app/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error("Usuario o contraseña incorrectos");
-      }
-
-      const data = await response.json();
-      const accessToken = data.accessToken;
-      localStorage.setItem("accessToken", accessToken);
-      checkAuthentication(); // Actualiza el estado de autenticación
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error.message);
-    }
-  };
+  // Llama a checkAuthentication cuando se monta la aplicación para verificar la autenticación
+  useState(() => {
+    checkAuthentication();
+  }, []);
+  
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login handleLogin={handleLogin} />} />
+       <Route
+          path="/"
+          element={<Login checkAuthentication={checkAuthentication} />}
+        />
+
+        {/* Protege todas las rutas dentro de "/home" */}
         <Route
           path="/home"
           element={
             isAuthenticated ? (
               <LayoutAdmin />
             ) : (
-              <Navigate to="/" replace />
+              <Navigate to="/" replace={true} /> // Redirige al inicio de sesión si no está autenticado
             )
           }
         >
           <Route index element={<Home />} />
           <Route path="verificacion" element={<Verificacion />} />
+
         </Route>
+
         <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>

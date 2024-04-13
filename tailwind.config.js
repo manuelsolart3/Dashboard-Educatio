@@ -10,6 +10,7 @@ export default {
           900: "#131618",
           fondo: "#0b0b0c",
           oscuro: "#5444c2",
+          gris: "#222222",
 
           morado: "#5A40FA",
         },

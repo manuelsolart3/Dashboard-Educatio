@@ -3,10 +3,14 @@ import { IoShieldCheckmark } from "react-icons/io5";
 import { FaExchangeAlt } from "react-icons/fa";
 import MessageCard from "./MessageCard";
 import { RiDeleteBin5Fill } from "react-icons/ri";
+import { GoBlocked } from "react-icons/go";
+import { MdChangeCircle } from "react-icons/md";
+import { GrDocumentUpdate } from "react-icons/gr";
 
 import {
   FcManager,
-  //FcNeutralDecision,
+  FcReuse,
+  
   FcFinePrint,
 } from "react-icons/fc";
 
@@ -191,7 +195,7 @@ const Verificacion = () => {
                 </div>
               </div>
             </div>
-            <div className="col-span-1 flex justify-end md:justify-center">
+            <div className="col-span-1 flex justify-end md:justify-end">
               <div className="text-xs text-white">
                 <p>
                   <button
@@ -203,8 +207,8 @@ const Verificacion = () => {
                 </p>
               </div>
             </div>
-            <div className="col-span-1 flex justify-end md:justify-center">
-              <div className="col-span-1">
+            <div className="col-span-1 flex justify-end md:justify-end">
+              <div className="col-span-1 ">
                 <span
                   className={`py-1 px-2 shadow-md font-bold ${
                     user.rol === "usuario"
@@ -216,25 +220,27 @@ const Verificacion = () => {
                 </span>
               </div>
             </div>
-            <div className="col-span-1 flex justify-center md:justify-end">
-              <div className="relative">
-                <div
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded cursor-pointer"
-                  onClick={() => actualizarEstado(user._id)}
-                >
-                  <FaExchangeAlt className="w-6 h-6 text-white" />
-                </div>
+            <div className="flex justify-end space-x-8 md:space-x-8">
+            <div className="relative " >
+              <div
+                className="absolute top-0 left-0 flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-600 cursor-pointer"
+                onClick={() => actualizarEstado(user._id)}
+              >
+                <GrDocumentUpdate className="w-6 h-6 text-white" />
               </div>
+              <span className="text-red-500 ml-2">ada</span>
             </div>
-            <div className="col-span-1 flex justify-center md:justify-end relative">
+              <div className="col-span-1 flex justify-center md:justify-end relative " >
               <div
                 className="absolute top-0 left-0 flex items-center justify-center w-10 h-10 rounded-full bg-red-500 hover:bg-red-600 cursor-pointer"
                 onClick={() => descartarVerificacion(user._id)}
               >
-                <RiDeleteBin5Fill className="w-6 h-6 text-white" />
+                <GoBlocked className="w-6 h-6 text-white" />
               </div>
-              <span className="text-red-500 ml-2">adas</span>
+              <span className="text-red-500 ml-2">ads</span>
             </div>
+            </div>
+            
           </div>
         ))}
       </div>
