@@ -51,7 +51,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat bg-back1">
-      <div className="bg-secondary-900 p-9 rounded-xl shadow-lg">
+      <div className="bg-secondary-900     p-9 rounded-xl shadow-lg">
         <h1 className="text-3xl uppercase font-semibold tracking-[2px] text-white mb-7">
           Iniciar <span className="text-primary">Sesión</span>
         </h1>

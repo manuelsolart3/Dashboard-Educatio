@@ -19,26 +19,26 @@ const Home = () => {
 
   // Efecto para cargar los usuarios al montar el componente
 
-    // Función para obtener los datos de la API
-    const fetchData = async () => {
-      try {
-        // Realiza la solicitud a la API
-        const response = await fetch(
-          "https://bdeducatio.vercel.app/api/usuarios"
-        );
-        // Verifica si la solicitud es exitosa
-        if (!response.ok) {
-          throw new Error("Error al obtener los usuarios");
-        }
-        // Convierte la respuesta a formato JSON
-        const data = await response.json();
-       
-        // Actualiza el estado con la lista de usuarios obtenida
-        setUsuarios(data.usuarios);
-      } catch (error) {
-        console.error("Error:", error);
+  // Función para obtener los datos de la API
+  const fetchData = async () => {
+    try {
+      // Realiza la solicitud a la API
+      const response = await fetch(
+        "https://bdeducatio.vercel.app/api/usuarios"
+      );
+      // Verifica si la solicitud es exitosa
+      if (!response.ok) {
+        throw new Error("Error al obtener los usuarios");
       }
-    };
+      // Convierte la respuesta a formato JSON
+      const data = await response.json();
+
+      // Actualiza el estado con la lista de usuarios obtenida
+      setUsuarios(data.usuarios);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   // Efecto para cargar los usuarios al montar el componente y consultar periódicamente nuevos usuarios
   useEffect(() => {
@@ -57,7 +57,6 @@ const Home = () => {
     // Limpia el intervalo cuando el componente se desmonta para evitar fugas de memoria
     return () => clearInterval(interval);
   }, []); // Se ejecuta solo una vez al montar el componente
- 
 
   // Función para actualizar el estado del usuario
   const actualizarEstado = async (userId) => {
@@ -204,14 +203,24 @@ const Home = () => {
           >
             {/* Icono de perfil y texto */}
             <div className="flex items-center">
-              <FcManager className="w-10 h-10 rounded-full object-cover mr-2 text-secondary-morado" />
+              {usuario.foto ? ( // Verifica si hay una URL de foto disponible
+                <img
+                  src={usuario.foto} // Utiliza la URL de la foto como origen de la imagen
+                  alt="Foto de perfil"
+                  className="w-16 h-16 rounded-full object-cover mr-2" // Ajusta el tamaño de la imagen
+                />
+              ) : (
+                <FcManager className="w-16 h-16 rounded-full object-cover mr-2 text-secondary-morado" /> // Ajusta el tamaño del icono
+              )}
               <span className="text-xs text-secondary-900 ml-1">
                 {/* Muestra el nombre del usuario y su correo */}
                 <p className="font-bold">{usuario.NomCompleto}</p>
                 <p>{usuario.email}</p>
-                <p>{usuario._id}</p>
+                <p>{usuario.Ciudad}</p>
+                <p>{usuario.Telefono}</p>
               </span>
             </div>
+
             {/* Muestra la fecha de creación del usuario */}
             <div>
               <p className="text-xs text-secondary-900 ml-14 font-bold col-span-1 flex justify-end md:justify-end ">
