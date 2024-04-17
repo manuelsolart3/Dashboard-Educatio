@@ -131,6 +131,12 @@ const Home = () => {
       usuario.email.toLowerCase().includes(buscarTermino.toLowerCase())
     );
   };
+   // Ordena los usuarios por fecha de creación, de más reciente a más antigua
+   const usuariosOrdenados = usuarios.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB - dateA;
+  });
 
   return (
     <div>
